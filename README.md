@@ -1,4 +1,4 @@
-<h1 align="center">Hi 👋, I'm Kaede Shimizu</h1>
+<h1 align="center">Hi 👋, I'm Kaede</h1>
 <h3 align="center">Currently studying at Shen Zhen. I am a student, who love programming, and hope to bring everyone a different life experience with code!</h3>
 
 ![](https://github-readme-stats.vercel.app/api?username=Kaede221&theme=tokyonight)
