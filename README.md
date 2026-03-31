@@ -45,12 +45,12 @@
 ## 📊 GitHub Stats
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Kaede221&theme=tokyonight&show_icons=true&hide_border=true&count_private=true" alt="Kaede's GitHub Stats" width="48%" />
+  <img src="https://readme-stats.maplon.top/api?username=Kaede221&theme=tokyonight&show_icons=true&hide_border=true&count_private=true" alt="Kaede's GitHub Stats" width="48%" />
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=Kaede221&theme=tokyonight&hide_border=true" alt="Kaede's Streak" width="48%" />
 </p>
 
 <p align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Kaede221&theme=tokyonight&layout=compact&hide_border=true" alt="Top Languages" />
+  <img src="https://readme-stats.maplon.top/api/top-langs/?username=Kaede221&theme=tokyonight&layout=compact&hide_border=true" alt="Top Languages" />
 </p>
 
 ---
