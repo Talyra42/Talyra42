@@ -1,48 +1,59 @@
-<h1 align="center">Hi there, I'm Talyra42 👋</h1>
+<div align="center">
+  <h1>Hi there, I'm Talyra42 👋</h1>
+  
+  <p><em>A passionate student & developer from Shenzhen, crafting unique life experiences through code.</em></p>
 
-<h3 align="center">A passionate student & developer from Shenzhen, crafting unique life experiences through code.</h3>
-
-<p align="center">
   <a href="https://github.com/Talyra42">
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1000&color=38B2AC&center=true&vCenter=true&width=435&lines=Student+%7C+Developer;Vue3+%7C+React+%7C+Electron;C%2B%2B+%7C+Python+%7C+Java" alt="Typing SVG" />
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1000&color=7AA2F7&center=true&vCenter=true&width=435&lines=Student+%7C+Developer;Vue3+%7C+React+%7C+Electron;Go+%7C+Rust+%7C+C%2B%2B;Python+%7C+Java+%7C+Spring" alt="Typing SVG" />
   </a>
-</p>
+</div>
 
 ---
 
-## 🙋‍♂️ About Me
+### ⚡ About Me
 
-- 🔭 I’m currently working on projects at [**Silgene**](https://github.com/silgene)
-- 🌱 I’m currently focusing on **Front-End Development** and exploring full-stack architecture.
-- 💬 Ask me about: **Vue3, React, Electron, C++, Python, and Java**
-- 📫 How to reach me: [**talyra42@outlook.com**](mailto:talyra42@outlook.com)
+> *"Exploring the boundary between imagination and code."*
+
+- 🚀 **Currently working on:** Exciting projects at [**Silgene**](https://github.com/silgene)
+- 🎯 **Currently focusing on:** **Front-End Development** & Full-Stack Architecture
+- 💡 **Ask me about:** Vue3, React, Go, Rust, C++, Python, Java, and Spring Boot
+- 📬 **How to reach me:** Drop me an email at [**talyra42@outlook.com**](mailto:talyra42@outlook.com)
 
 ---
 
-## 🛠️ Tech Stack
+### 💻 Tech Stack
 
-### Languages
+<br/>
+
+**Frontend & Frameworks**
 <p align="left">
-  <img src="https://img.shields.io/badge/c-%2300599C.svg?style=for-the-badge&logo=c&logoColor=white" alt="C" />
-  <img src="https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white" alt="C++" />
-  <img src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" alt="Python" />
-  <img src="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java" />
-  <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" alt="JavaScript" />
-  <img src="https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
+  <img src="https://img.shields.io/badge/Vue.js-1A1B27?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D" alt="Vue.js" />
+  <img src="https://img.shields.io/badge/React-1A1B27?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/Electron-1A1B27?style=for-the-badge&logo=electron&logoColor=468C98" alt="Electron" />
+  <img src="https://img.shields.io/badge/HTML5-1A1B27?style=for-the-badge&logo=html5&logoColor=E34F26" alt="HTML5" />
 </p>
 
-### Frameworks & Tools
+**Languages**
 <p align="left">
-  <img src="https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D" alt="Vue.js" />
-  <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="React" />
-  <img src="https://img.shields.io/badge/Electron-191970?style=for-the-badge&logo=Electron&logoColor=white" alt="Electron" />
-  <img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white" alt="NodeJS" />
-  <img src="https://img.shields.io/badge/hexo-%230E83CD.svg?style=for-the-badge&logo=hexo&logoColor=white" alt="Hexo" />
+  <img src="https://img.shields.io/badge/Go-1A1B27?style=for-the-badge&logo=go&logoColor=00ADD8" alt="Go" />
+  <img src="https://img.shields.io/badge/Rust-1A1B27?style=for-the-badge&logo=rust&logoColor=white" alt="Rust" />
+  <img src="https://img.shields.io/badge/C-1A1B27?style=for-the-badge&logo=c&logoColor=00599C" alt="C" />
+  <img src="https://img.shields.io/badge/C++-1A1B27?style=for-the-badge&logo=c%2B%2B&logoColor=00599C" alt="C++" />
+  <img src="https://img.shields.io/badge/Python-1A1B27?style=for-the-badge&logo=python&logoColor=3776AB" alt="Python" />
+  <img src="https://img.shields.io/badge/Java-1A1B27?style=for-the-badge&logo=openjdk&logoColor=ED8B00" alt="Java" />
+  <img src="https://img.shields.io/badge/JavaScript-1A1B27?style=for-the-badge&logo=javascript&logoColor=F7DF1E" alt="JavaScript" />
+</p>
+
+**Backend & Environment**
+<p align="left">
+  <img src="https://img.shields.io/badge/Gin-1A1B27?style=for-the-badge&logo=go&logoColor=00ADD8" alt="Gin" />
+  <img src="https://img.shields.io/badge/Spring_Boot-1A1B27?style=for-the-badge&logo=springboot&logoColor=6DB33F" alt="Spring Boot" />
+  <img src="https://img.shields.io/badge/Node.js-1A1B27?style=for-the-badge&logo=nodedotjs&logoColor=339933" alt="Node.js" />
 </p>
 
 ---
 
-## 📊 GitHub Stats
+### 📊 GitHub Analytics
 
 <p align="center">
   <img src="https://readme-stats.maplon.top/api?username=Talyra42&theme=tokyonight&show_icons=true&hide_border=true&count_private=true" alt="Talyra42's GitHub Stats" width="48%" />
@@ -50,12 +61,12 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-stats.maplon.top/api/top-langs/?username=Talyra42&theme=tokyonight&layout=compact&hide_border=true" alt="Top Languages" />
+  <img src="https://readme-stats.maplon.top/api/top-langs/?username=Talyra42&theme=tokyonight&layout=compact&hide_border=true" alt="Top Languages" width="48%" />
 </p>
 
 ---
 
-## 🐍 Contribution Snake
+### 🌐 Contribution Snake
 
 <p align="center">
   <picture>
