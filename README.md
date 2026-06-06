@@ -55,13 +55,15 @@
 
 ### 📊 GitHub Analytics
 
+<!-- 以下图表由 .github/workflows/metrics.yml 在 GitHub Actions 中生成并提交到 output 分支，
+     仅从本仓库读取，不依赖任何第三方在线渲染服务，稳定可靠。 -->
+
 <p align="center">
-  <img src="https://readme-stats.maplon.top/api?username=Talyra42&theme=tokyonight&show_icons=true&hide_border=true&count_private=true" alt="Talyra42's GitHub Stats" width="48%" />
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=Talyra42&theme=tokyonight&hide_border=true" alt="Talyra42's Streak" width="48%" />
+  <img src="https://raw.githubusercontent.com/Talyra42/Talyra42/output/metrics.svg" alt="Talyra42's GitHub Metrics" width="80%" />
 </p>
 
 <p align="center">
-  <img src="https://readme-stats.maplon.top/api/top-langs/?username=Talyra42&theme=tokyonight&layout=compact&hide_border=true" alt="Top Languages" width="48%" />
+  <img src="https://raw.githubusercontent.com/Talyra42/Talyra42/output/metrics-languages.svg" alt="Top Languages" width="48%" />
 </p>
 
 ---

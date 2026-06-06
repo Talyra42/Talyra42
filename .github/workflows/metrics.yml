@@ -1,0 +1,56 @@
+name: Generate Metrics
+
+on:
+  # 每 6 小时自动运行一次（错开整点，避免与贪吃蛇工作流同时推送 output 分支）
+  schedule:
+    - cron: "30 */6 * * *"
+  # 允许在 Actions 页面手动触发
+  workflow_dispatch:
+
+# 让生成的 SVG 能被提交回仓库
+permissions:
+  contents: write
+
+jobs:
+  metrics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      # 1) 主面板：概览统计 + 全年贡献日历（替代原 Stats / Streak 卡片）
+      - name: Generate main metrics
+        uses: lowlighter/metrics@v3.34
+        with:
+          # 优先使用个人访问令牌 METRICS_TOKEN（可统计私有贡献）；
+          # 未配置时自动回退到内置 GITHUB_TOKEN（仅公开数据）。
+          token: ${{ secrets.METRICS_TOKEN || github.token }}
+          user: Talyra42
+          filename: metrics.svg
+          template: classic
+          base: header, activity, community, repositories, metadata
+          config_timezone: Asia/Shanghai
+          # 全年等距贡献日历
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: full-year
+          # 把生成结果提交到 output 分支（与贪吃蛇动画放在一起）
+          output_action: commit
+          committer_branch: output
+          committer_message: "chore(metrics): update metrics.svg"
+
+      # 2) 语言面板：Top Languages（替代原 top-langs 卡片）
+      - name: Generate languages metrics
+        uses: lowlighter/metrics@v3.34
+        with:
+          token: ${{ secrets.METRICS_TOKEN || github.token }}
+          user: Talyra42
+          filename: metrics-languages.svg
+          # 只渲染语言卡片，不要额外的头部信息
+          base: ""
+          config_timezone: Asia/Shanghai
+          plugin_languages: yes
+          plugin_languages_limit: 8
+          plugin_languages_sort: size
+          plugin_languages_colors: github
+          plugin_languages_threshold: 1%
+          output_action: commit
+          committer_branch: output
+          committer_message: "chore(metrics): update metrics-languages.svg"

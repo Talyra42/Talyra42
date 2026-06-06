@@ -34,5 +34,7 @@ jobs:
         with:
           target_branch: output
           build_dir: dist
+          # 保留 output 分支上的其它文件（例如 metrics.yml 生成的 metrics.svg），避免被覆盖删除
+          keep_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
