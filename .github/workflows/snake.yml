@@ -1,15 +1,11 @@
 name: Generate Snake Animation
 
 on:
-  # 每 24 小时自动运行一次
+  # 每天 00:00 (UTC) 自动运行一次
   schedule:
     - cron: "0 0 * * *"
   # 允许手动触发执行
   workflow_dispatch:
-  # 当推送到 main 分支时自动执行 (如果你的主分支叫 master，请将 main 改为 master)
-  push:
-    branches:
-    - main
 
 jobs:
   generate:
@@ -19,7 +15,7 @@ jobs:
     timeout-minutes: 5
 
     steps:
-      # 生成贪吃蛇动画
+      # 生成贪吃蛇动画到 dist/
       - name: Generate github-contribution-grid-snake.svg
         uses: Platane/snk/svg-only@v3
         with:
@@ -28,13 +24,22 @@ jobs:
             dist/github-contribution-grid-snake.svg
             dist/github-contribution-grid-snake-dark.svg?palette=github-dark
 
-      # 将生成的 svg 文件推送到一个名为 'output' 的新分支
-      - name: Push github-contribution-grid-snake.svg to the output branch
-        uses: crazy-max/ghaction-github-pages@v3.1.0
-        with:
-          target_branch: output
-          build_dir: dist
-          # 保留 output 分支上的其它文件（例如 metrics.yml 生成的 metrics.svg），避免被覆盖删除
-          keep_files: true
+      # 以「追加式提交」的方式把蛇的 SVG 写入 output 分支：
+      # 克隆现有 output 分支 -> 仅覆盖蛇的两个文件 -> 增量提交。
+      # 这样 metrics.yml 生成的 metrics*.svg 不会被删除（之前用 ghaction-github-pages
+      # 会强制覆盖整个分支，导致 metrics 文件丢失）。
+      - name: Publish snake svg to output branch (additive)
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          tmp="$(mktemp -d)"
+          git clone -q --branch output --depth 1 \
+            "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "$tmp"
+          cp dist/github-contribution-grid-snake*.svg "$tmp"/
+          cd "$tmp"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add github-contribution-grid-snake*.svg
+          git diff --quiet --cached || git commit -m "chore(snake): update contribution snake animation"
+          git push -q origin output
