@@ -43,8 +43,9 @@ jobs:
           token: ${{ secrets.METRICS_TOKEN || github.token }}
           user: Talyra42
           filename: metrics-languages.svg
-          # 只渲染语言卡片，不要额外的头部信息
-          base: ""
+          # 默认模式的语言字节数据由 base 的 repositories 模块填充，
+          # 因此必须开启 repositories（否则仓库节点为空，语言卡片渲染为空）。
+          base: repositories
           config_timezone: Asia/Shanghai
           plugin_languages: yes
           plugin_languages_limit: 8
