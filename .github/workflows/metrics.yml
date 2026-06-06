@@ -14,7 +14,7 @@ permissions:
 jobs:
   metrics:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       # 1) 主面板：概览统计 + 全年贡献日历（替代原 Stats / Streak 卡片）
       - name: Generate main metrics
@@ -48,8 +48,11 @@ jobs:
           base: repositories
           config_timezone: Asia/Shanghai
           plugin_languages: yes
+          # indepth 模式：克隆仓库并用 linguist 分析真实代码，
+          # 不依赖 GraphQL 的 languages 字段（该字段在此账号下返回为空）。
+          plugin_languages_indepth: yes
+          plugin_languages_sections: most-used
           plugin_languages_limit: 8
-          plugin_languages_sort: size
           plugin_languages_colors: github
           plugin_languages_threshold: 1%
           output_action: commit
