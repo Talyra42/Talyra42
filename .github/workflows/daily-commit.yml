@@ -1,0 +1,30 @@
+name: Keep Contribution Graph Alive
+
+on:
+  # 每天 UTC 04:00 = 北京时间(Asia/Shanghai)12:00 自动运行
+  schedule:
+    - cron: "0 4 * * *"
+  # 允许在 Actions 页面手动触发
+  workflow_dispatch:
+
+# 允许把提交推回仓库
+permissions:
+  contents: write
+
+jobs:
+  daily-commit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create daily empty commit as repository owner
+        run: |
+          # 关键：把提交作者设为你绑定 GitHub 账号的邮箱，贡献图才会计入你名下
+          git config user.name "Talyra42"
+          git config user.email "talyra42@foxmail.com"
+          # 空提交，不产生任何文件改动，仅用于保持贡献图活跃
+          git commit --allow-empty -m "chore: keep contribution graph alive ($(date -u +%Y-%m-%d))"
+          # 用默认的 GITHUB_TOKEN 推送（其推送不会触发其它工作流，避免循环）
+          git push
