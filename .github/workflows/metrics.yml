@@ -16,6 +16,45 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
+      # 0) 预检：确认 METRICS_TOKEN 还活着。
+      #    classic PAT 过期/被撤销后，`secrets.METRICS_TOKEN || github.token` 不会回退
+      #    （|| 只对「secret 不存在/为空」生效），metrics 会带着死 token 重试 3 次、
+      #    拖满约 15 分钟才以 "401 Bad credentials" 失败，期间唯一症状是图表悄悄停更。
+      #    这里花 10 秒打一次 GET /user，把静默失败变成一条照着做就能修好的红色报错。
+      - name: Preflight - verify METRICS_TOKEN
+        env:
+          METRICS_TOKEN: ${{ secrets.METRICS_TOKEN }}
+        run: |
+          if [ -z "${METRICS_TOKEN}" ]; then
+            echo "::warning::METRICS_TOKEN 未配置，将回退到内置 GITHUB_TOKEN（只能统计公开数据）"
+            exit 0
+          fi
+
+          headers="$(mktemp)"
+          status="$(curl -sS -o /dev/null -D "${headers}" -w '%{http_code}' \
+            -H "Authorization: token ${METRICS_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/user)"
+          scopes="$(grep -i '^x-oauth-scopes:' "${headers}" | cut -d: -f2- | tr -d '\r ')"
+
+          case "${status}" in
+            200)
+              echo "METRICS_TOKEN 有效（GET /user → 200），scopes: ${scopes:-<未返回>}"
+              if [ -z "${scopes}" ]; then
+                echo "::warning::响应里没有 x-oauth-scopes 头，这个值可能不是 classic PAT（metrics 不支持 fine-grained token）"
+              elif ! printf ',%s,' "${scopes}" | grep -q ',repo,'; then
+                echo "::warning::METRICS_TOKEN 缺少 repo scope，私有贡献统计会被跳过"
+              fi
+              ;;
+            401)
+              echo "::error::METRICS_TOKEN 已失效（401 Bad credentials：过期或被撤销）。到 https://github.com/settings/tokens 新建 classic PAT（scope: repo + read:user），执行 gh secret set METRICS_TOKEN -R ${GITHUB_REPOSITORY}，然后重跑本工作流。"
+              exit 1
+              ;;
+            *)
+              echo "::warning::METRICS_TOKEN 预检返回 ${status:-<no response>}（可能是限流或 GitHub 抖动），继续交给 metrics 自己处理"
+              ;;
+          esac
+
       # 1) 主面板：概览统计 + 全年贡献日历（替代原 Stats / Streak 卡片）
       - name: Generate main metrics
         uses: lowlighter/metrics@v3.34
