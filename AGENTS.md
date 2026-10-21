@@ -1,6 +1,7 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for coding agents working in this repository. Renamed from `CLAUDE.md` to the cross-agent
+`AGENTS.md` convention on 2026-10-21.
 
 ## What this repo is
 
@@ -22,17 +23,24 @@ Three workflows write to `output`, so they must not clobber each other:
 
 - **Languages card needs indepth mode.** `lowlighter/metrics`' default languages mode reads `data.user.repositories.nodes[].languages.edges`, which comes back empty for this account, producing a blank card. The fix in use is `plugin_languages_indepth: yes` (clones repos and runs Linguist on real file contents). Do not revert to default mode.
 - **Daily contribution commit must be authored by a verified account email.** GitHub's contribution graph attributes by the *commit author email*, not the pusher. Bot-authored commits (`github-actions[bot]`) from the snake/metrics workflows do **not** count. `daily-commit.yml` sets `git config user.email` to a GitHub-account-verified email so its empty commits count. Runs at `0 4 * * *` (UTC) = 12:00 Asia/Shanghai.
-- **`METRICS_TOKEN` secret is optional.** Both metrics steps use `token: ${{ secrets.METRICS_TOKEN || github.token }}`. With no PAT it works on public data only; a PAT (repo + read:user) adds private-contribution stats. If the PAT expires it silently falls back to public data.
+- **A dead `METRICS_TOKEN` fails the job — it does not degrade gracefully.** Both metrics steps use `token: ${{ secrets.METRICS_TOKEN || github.token }}`, but that `||` only falls back when the secret is *missing or empty*. A secret that still exists but holds an expired or revoked token is passed through verbatim, every API call returns `401 Bad credentials`, and `lowlighter/metrics` retries 3× for ~15 minutes before failing. The only visible symptom is that the charts silently stop updating. This is what happened on 2026-10-21: the token stored on 2026-06-06 had been deleted, and run `39597314208` burned 15m48s before failing. `metrics.yml` now starts with a `Preflight - verify METRICS_TOKEN` step that turns this into a ~10 second failure with instructions.
+- **Classic PAT only, scopes `repo` + `read:user`.** `lowlighter/metrics@v3.34` throws immediately on fine-grained tokens (`github_pat_…`) because GraphQL does not accept them. `repo` is what enables the private-contribution stats; without it metrics still renders, on public data only.
+- **Rotating the token.** Create a classic PAT → `gh secret set METRICS_TOKEN -R Talyra42/Talyra42` (paste at the hidden prompt; never commit it) → `gh workflow run metrics.yml` → confirm `Token validity │ seems ok` in the log and a fresh commit on `output`. After rotating, replace the placeholder on the next line with the date the new token expires, so it can be rotated ahead of time instead of after CI breaks.
+
+```
+METRICS_TOKEN expires: <YYYY-MM-DD>
+```
 
 ## How to validate changes (there are no tests)
 
 Workflows only run on GitHub, so the dev loop is: edit → push → trigger → inspect the `output` branch.
 
 ```bash
-# Validate a workflow's YAML before pushing
+# Validate a workflow's YAML before pushing (when python3 is available)
 python3 -c "import yaml; yaml.safe_load(open('.github/workflows/metrics.yml'))"
 
-# Manually trigger a workflow and watch it
+# Manually trigger a workflow and watch it.
+# A 422 from `gh workflow run` also means the YAML is invalid.
 gh workflow run metrics.yml
 gh run list --workflow=metrics.yml --limit 1
 gh run view <run-id> --log         # full log of a run
